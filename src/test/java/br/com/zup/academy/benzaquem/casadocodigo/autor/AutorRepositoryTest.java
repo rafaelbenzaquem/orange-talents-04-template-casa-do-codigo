@@ -23,5 +23,14 @@ public class AutorRepositoryTest {
         Assertions.assertNotNull(autor.getId());
     }
 
+    @Test
+    public void criarAutorComInstanteNuloNoBanco() {
+        Autor autor = new Autor("Andressa Benzaquem", "andreca@email.com", "Autor de teste");
+
+        autor = autorRepository.save(autor);
+
+        Assertions.assertNotNull(autor.getInstante());
+    }
+
 
 }

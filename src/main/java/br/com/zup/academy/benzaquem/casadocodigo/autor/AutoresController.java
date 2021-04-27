@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class AutoresController {
 
@@ -13,9 +15,9 @@ public class AutoresController {
     private AutorRepository autorRepository;
 
     @PostMapping(path = "/autores")
-    public ResponseEntity criar(@RequestBody NovoAutorRequest novoAutor){
-         Autor  auto =  autorRepository.save(novoAutor.toAutor());
-        return ResponseEntity.ok().body("autor criado com sucesso");
+    public ResponseEntity<NovoAutorResponse> criar(@RequestBody @Valid NovoAutorRequest novoAutor){
+         Autor  novoAutorSalvo =  autorRepository.save(novoAutor.toAutor());
+        return ResponseEntity.ok().body(new NovoAutorResponse(novoAutorSalvo));
     }
 
 }

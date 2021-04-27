@@ -1,9 +1,11 @@
 package br.com.zup.academy.benzaquem.casadocodigo.autor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.apache.tomcat.jni.Local;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 public class Autor {
@@ -13,7 +15,10 @@ public class Autor {
     private Long Id;
     private String nome;
     private String email;
+    @Column(length = 400)
     private String descricao;
+    @CreationTimestamp
+    private Timestamp instante;
 
     public Autor() {
     }
@@ -38,5 +43,9 @@ public class Autor {
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public Timestamp getInstante() {
+        return instante;
     }
 }
