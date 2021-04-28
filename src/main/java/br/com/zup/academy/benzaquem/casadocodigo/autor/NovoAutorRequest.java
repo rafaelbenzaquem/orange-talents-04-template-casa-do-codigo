@@ -3,24 +3,20 @@ package br.com.zup.academy.benzaquem.casadocodigo.autor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 public class NovoAutorRequest {
 
-    @NotBlank
-    @NotEmpty
+    @NotEmpty(message = "O nome não pode ser vázio, em branco ou nulo!")
     public String nome;
 
-    @NotEmpty
-    @NotBlank
-    @Email
+    @NotEmpty(message = "O email não pode ser vázio, em branco ou nulo!")
+    @Email(message = "Formato do email não está adaqueado!")
+    @EmailUnico(message = "Email já cadastrado no sistema!")
     public String email;
 
-    @NotEmpty
-    @NotBlank
-    @Length(min = 1,max = 400)
+    @NotEmpty(message = "A descrição não pode ser vázio, em branco ou nulo!")
+    @Length(min = 10,max = 400,message ="A descrição deve está entre 10 e 400 caracteres!" )
     public String descricao;
 
     public NovoAutorRequest(String nome, String email, String descricao) {

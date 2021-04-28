@@ -1,11 +1,9 @@
 package br.com.zup.academy.benzaquem.casadocodigo.autor;
 
-import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
 @Entity
 public class Autor {

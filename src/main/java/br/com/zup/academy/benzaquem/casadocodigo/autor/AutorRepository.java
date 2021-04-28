@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface AutorRepository extends JpaRepository<Autor,Long> {
 
     public void deleteAllByEmail(String email);
-    public List<Autor> findAllByEmail(String email);
+    public Optional<Autor> findByEmail(String email);
 
 }
