@@ -27,7 +27,7 @@ public class AutoresControllerTest {
 
     @Test
     @Order(1)
-    public void autorCriadoComSucessoRetorna200() throws Exception {
+    public void autorCadastradoComSucessoRetorna200() throws Exception {
         URI uri = new URI("/autores");
         String body = "{\n" +
                 "\"nome\":\"Rafael Benzaquem Neto\",\n" +
