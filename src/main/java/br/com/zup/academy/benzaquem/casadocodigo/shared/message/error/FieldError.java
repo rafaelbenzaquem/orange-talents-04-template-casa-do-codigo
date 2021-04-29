@@ -1,4 +1,4 @@
-package br.com.zup.academy.benzaquem.casadocodigo.error;
+package br.com.zup.academy.benzaquem.casadocodigo.shared.message.error;
 
 public class FieldError {
 

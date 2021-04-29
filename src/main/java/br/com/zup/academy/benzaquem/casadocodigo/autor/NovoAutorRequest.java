@@ -1,5 +1,6 @@
 package br.com.zup.academy.benzaquem.casadocodigo.autor;
 
+import br.com.zup.academy.benzaquem.casadocodigo.shared.validators.CampoUnico;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -12,7 +13,7 @@ public class NovoAutorRequest {
 
     @NotEmpty(message = "O email não pode ser vázio, em branco ou nulo!")
     @Email(message = "Formato do email não está adaqueado!")
-    @EmailUnico(message = "Email já cadastrado no sistema!")
+    @CampoUnico(message = "Email já cadastrado no sistema!",fieldName = "email",domainClass = Autor.class)
     public String email;
 
     @NotEmpty(message = "A descrição não pode ser vázio, em branco ou nulo!")

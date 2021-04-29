@@ -1,6 +1,6 @@
 package br.com.zup.academy.benzaquem.casadocodigo.autor;
 
-import br.com.zup.academy.benzaquem.casadocodigo.error.ValidatorErrorResponse;
+import br.com.zup.academy.benzaquem.casadocodigo.shared.message.error.ValidatorErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

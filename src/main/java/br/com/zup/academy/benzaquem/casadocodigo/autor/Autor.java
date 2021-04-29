@@ -12,6 +12,7 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String nome;
+    @Column(unique = true)
     private String email;
     @Column(length = 400)
     private String descricao;
