@@ -1,5 +1,8 @@
 package br.com.zup.academy.benzaquem.casadocodigo.livro;
 
+import br.com.zup.academy.benzaquem.casadocodigo.autor.Autor;
+import br.com.zup.academy.benzaquem.casadocodigo.categoria.Categoria;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,8 +24,10 @@ public class Livro {
     private Integer pag;
     private String isbn;
     private LocalDate lancamento;
-    private Integer idCategoria;
-    private Long idAutor;
+    @ManyToOne
+    private Categoria categoria;
+    @ManyToOne
+    private Autor autor;
 
     private Livro(Builder builder) {
         this.titulo = builder.titulo;
@@ -32,8 +37,8 @@ public class Livro {
         this.pag = builder.pag;
         this.isbn = builder.isbn;
         this.lancamento = builder.lancamento;
-        this.idAutor = builder.idAutor;
-        this.idCategoria = builder.idCategoria;
+        this.autor = builder.autor;
+        this.categoria = builder.categoria;
     }
 
     @Deprecated
@@ -41,7 +46,7 @@ public class Livro {
     }
 
     public NovoLivroResponse toResponse() {
-        return new NovoLivroResponse.Builder(this.id, this.titulo, this.resumo, this.idCategoria, this.idAutor)
+        return new NovoLivroResponse.Builder(this.id, this.titulo, this.resumo, this.categoria.getId(), this.autor.getId())
                 .sumario(this.sumario)
                 .preco(this.preco)
                 .pag(this.pag)
@@ -52,6 +57,7 @@ public class Livro {
 
 
     public static class Builder {
+
         private String titulo;
         private String resumo;
         private String sumario;
@@ -59,14 +65,14 @@ public class Livro {
         private Integer pag;
         private String isbn;
         private LocalDate lancamento;
-        private Integer idCategoria;
-        private Long idAutor;
+        private Categoria categoria;
+        private Autor autor;
 
-        public Builder(String titulo, String resumo, Integer idCategoria, Long idAutor) {
+        public Builder(String titulo, String resumo, Categoria categoria, Autor autor) {
             this.titulo = titulo;
             this.resumo = resumo;
-            this.idCategoria = idCategoria;
-            this.idAutor = idAutor;
+            this.categoria = categoria;
+            this.autor = autor;
         }
 
 

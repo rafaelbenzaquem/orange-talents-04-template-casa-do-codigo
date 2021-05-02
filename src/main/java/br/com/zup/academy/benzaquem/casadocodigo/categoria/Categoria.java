@@ -13,11 +13,21 @@ public class Categoria {
     public Categoria() {
     }
 
+    public Categoria(Integer id) {
+        this.id = id;
+    }
+
     public Categoria(String nome) {
-        this.nome=nome;
+        this.nome = nome;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public NovaCategoriaResponse toResponse() {
-        return  new NovaCategoriaResponse(this.id,this.nome);
+        return new NovaCategoriaResponse(this.id, this.nome);
     }
+
+
 }

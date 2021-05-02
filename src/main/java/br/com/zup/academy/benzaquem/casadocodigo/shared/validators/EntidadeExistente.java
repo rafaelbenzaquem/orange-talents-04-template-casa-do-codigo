@@ -7,13 +7,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = CampoUnicoValidator.class)
+@Constraint(validatedBy = EntidadeExistenteValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CampoUnico {
-    String message() default "{br.com.zup.academy.benzaquem.casadocodigo.shared.validators.CampoUnico.message}";
+public @interface EntidadeExistente {
+    String message() default "{br.com.zup.academy.benzaquem.casadocodigo.shared.validators.EntidadeInexistente.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-    String fieldName();
     Class<?> domainClass();
 }

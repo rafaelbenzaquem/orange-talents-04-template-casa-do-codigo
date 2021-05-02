@@ -50,7 +50,7 @@ public class LivrosControllerTest {
                 "        \"isbn\":\"0-201-63361-2\",\n" +
                 "        \"lancamento\":\"28/09/2021\",\n" +
                 "        \"autor\":"+autor.getId()+",\n" +
-                "        \"categoria\":"+categoria.toResponse().getId()+"\n" +
+                "        \"categoria\":"+categoria.getId()+"\n" +
                 "}";
 
         URI uri = new URI("/livros");
@@ -62,7 +62,7 @@ public class LivrosControllerTest {
 
     @Test
     @Order(2)
-    public void livroComTituloRepedidoRetorna400() throws Exception {
+    public void livroComTituloRepetidoRetorna400() throws Exception {
         Autor autor = autorRepository.findByEmail("gangoffour@designpatterns.com").get();
         Categoria categoria = categoriaRepository.findByNome("Software Engineering").get();
 
@@ -74,7 +74,7 @@ public class LivrosControllerTest {
                 "        \"isbn\":\"0-201-63361-2\",\n" +
                 "        \"lancamento\":\"28/09/2021\",\n" +
                 "        \"autor\":"+autor.getId()+",\n" +
-                "        \"categoria\":"+categoria.toResponse().getId()+"\n" +
+                "        \"categoria\":"+categoria.getId()+"\n" +
                 "}";
         URI uri = new URI("/livros");
         mockMvc.perform(MockMvcRequestBuilders.post(uri)
@@ -82,4 +82,69 @@ public class LivrosControllerTest {
                 .content(requestSuccess)
         ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.BAD_REQUEST.value()));
     }
+
+    @Test
+    public void livroComCategoriaInexistenteRetorna400() throws Exception {
+        Autor autor = new Autor("Kent Beck", "kent.beck@xp.com", "consistently challenges software engineering dogma, promoting ideas like patterns, test-driven development, and Extreme Programming. Currently affiliated with Three Rivers Institute and Agitar Software, he is the author of many Addison-Wesley titles.");
+        autor = autorRepository.save(autor);
+
+        String requestSuccess = "{ \n" +
+                "    \"titulo\":\"Exetreme Programming Explained: Embrance Change. Second Edition.\",\n" +
+                "    \"resumo\":\"In this second edition of Extreme Programming Explained, Kent Beck organizes and presents five years’ worth of experiences, growth, and change revolving around XP. If you are seriously interested in understanding how you and your team can start down the path of improvement with XP, you must read this book.\",\n" +
+                "    \"sumario\":\"# Extreme Programming Explained. Embrance Change, Second Edition By Kent Beck. ### Chapter What is XP? * It's about social change. * Don't protect yourself from success by holding back. Do your best and then deal with the consequences. * It's a style of software development focusing on excellent application of programming techniques, clear communication, and teamwork. * It's a path of improvement to excellence for people coming together to develop software. It is distinguished by:     * Its short development cycles. * Its incremental planning approach. * Its ability to flexibly when the business needs change. * Its reliance on automated tests. * Its reliance on oral communication. * Its reliance on an evolutionary design process. * Its reliance on the close collaboration. * Its reliance on practices that work with both the short-term instincts of the team members and the long-term interests of the project. * XP is a lightweight methodology for small-to-medium-sized teams developing software in the face of vague or rapidly changing requirements. * In XP you only do what you need to do to create value for the customer. * The values and principles behind XP are applicable at any scale. * It's a methodology based on addressing constraints in software development. * XP demands that participants learn a high level of technique in service of the team's goals. * The risks in the development process: * Schedule slips.  * It calls for short release cycles, so the scope of any slip is limited. Within a release, XP uses one-week iterations of customer-requested features to create fine-grained feedback about progress. XP calls for implementing the highest priority features first, so any features that slip past the release will be of lower value. * Project canceled. * It asks the business-oriented part of the team to choose the smallest release that makes the most business sense, so there is less to go wrong before deploying and the value of the software is greatest. * System goes sour. * It creates and maintains a comprehensive suite of automated tests, which are run and rerun after every change to ensure a quality baseline. XP always keeps the system in deployable condition. Problems are not allowed to accumulate. * Defect rate. * It tests from the perspective of both programmers writing tests function-by-function and customers writing tests program-feature-by-program-feature. * Business misunderstood. * The specification of the project is continuously refined during development, so learning by the customer and the team can be reflected in the software. * Business changes. * It shortens the release cycle, so there is less change during the development of a single release. During a release, the customer is welcome to substitute new functionality for functionality not yet completed. The team doesn't even notice if it is working on newly discovered functionality or features defined years ago. * False feature rich. * XP insists that only the highest priority tasks are addressed. * Staff turnover.* XP asks programmers to accept responsibility for estimating and completing their own work, gives them feedback about the actual time taken so their estimates can improve, and respects those estimates. XP also encourages human contact among the team, reducing the loneliness that is often at the heart of job dissatisfaction. New team members are encouraged to gradually accept more and more responsibility.\",\n" +
+                "        \"preco\": 299.99,\n" +
+                "        \"pag\": 224,\n" +
+                "        \"isbn\":\"9-780-32127865-4\",\n" +
+                "        \"lancamento\":\"28/09/2021\",\n" +
+                "        \"autor\":"+autor.getId()+",\n" +
+                "        \"categoria\":99\n" +
+                "}";
+        URI uri = new URI("/livros");
+        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestSuccess)
+        ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.BAD_REQUEST.value()));
+    }
+
+
+    @Test
+    public void livroComAutorInexistenteRetorna400() throws Exception {
+        String requestSuccess = "{ \n" +
+                "    \"titulo\":\"Exetreme Programming Explained: Embrance Change. Second Edition.\",\n" +
+                "    \"resumo\":\"In this second edition of Extreme Programming Explained, Kent Beck organizes and presents five years’ worth of experiences, growth, and change revolving around XP. If you are seriously interested in understanding how you and your team can start down the path of improvement with XP, you must read this book.\",\n" +
+                "    \"sumario\":\"# Extreme Programming Explained. Embrance Change, Second Edition By Kent Beck. ### Chapter What is XP? * It's about social change. * Don't protect yourself from success by holding back. Do your best and then deal with the consequences. * It's a style of software development focusing on excellent application of programming techniques, clear communication, and teamwork. * It's a path of improvement to excellence for people coming together to develop software. It is distinguished by:     * Its short development cycles. * Its incremental planning approach. * Its ability to flexibly when the business needs change. * Its reliance on automated tests. * Its reliance on oral communication. * Its reliance on an evolutionary design process. * Its reliance on the close collaboration. * Its reliance on practices that work with both the short-term instincts of the team members and the long-term interests of the project. * XP is a lightweight methodology for small-to-medium-sized teams developing software in the face of vague or rapidly changing requirements. * In XP you only do what you need to do to create value for the customer. * The values and principles behind XP are applicable at any scale. * It's a methodology based on addressing constraints in software development. * XP demands that participants learn a high level of technique in service of the team's goals. * The risks in the development process: * Schedule slips.  * It calls for short release cycles, so the scope of any slip is limited. Within a release, XP uses one-week iterations of customer-requested features to create fine-grained feedback about progress. XP calls for implementing the highest priority features first, so any features that slip past the release will be of lower value. * Project canceled. * It asks the business-oriented part of the team to choose the smallest release that makes the most business sense, so there is less to go wrong before deploying and the value of the software is greatest. * System goes sour. * It creates and maintains a comprehensive suite of automated tests, which are run and rerun after every change to ensure a quality baseline. XP always keeps the system in deployable condition. Problems are not allowed to accumulate. * Defect rate. * It tests from the perspective of both programmers writing tests function-by-function and customers writing tests program-feature-by-program-feature. * Business misunderstood. * The specification of the project is continuously refined during development, so learning by the customer and the team can be reflected in the software. * Business changes. * It shortens the release cycle, so there is less change during the development of a single release. During a release, the customer is welcome to substitute new functionality for functionality not yet completed. The team doesn't even notice if it is working on newly discovered functionality or features defined years ago. * False feature rich. * XP insists that only the highest priority tasks are addressed. * Staff turnover.* XP asks programmers to accept responsibility for estimating and completing their own work, gives them feedback about the actual time taken so their estimates can improve, and respects those estimates. XP also encourages human contact among the team, reducing the loneliness that is often at the heart of job dissatisfaction. New team members are encouraged to gradually accept more and more responsibility.\",\n" +
+                "        \"preco\": 299.99,\n" +
+                "        \"pag\": 224,\n" +
+                "        \"isbn\":\"9-780-32127865-4\",\n" +
+                "        \"lancamento\":\"28/09/2021\",\n" +
+                "        \"autor\":99,\n" +
+                "        \"categoria\":1\n" +
+                "}";
+        URI uri = new URI("/livros");
+        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestSuccess)
+        ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.BAD_REQUEST.value()));
+    }
+
+    @Test
+    public void livroComLancamentoNoPassadoRetorna400() throws Exception {
+        String requestSuccess = "{ \n" +
+                "    \"titulo\":\"Exetreme Programming Explained: Embrance Change. Second Edition.\",\n" +
+                "    \"resumo\":\"In this second edition of Extreme Programming Explained, Kent Beck organizes and presents five years’ worth of experiences, growth, and change revolving around XP. If you are seriously interested in understanding how you and your team can start down the path of improvement with XP, you must read this book.\",\n" +
+                "    \"sumario\":\"# Extreme Programming Explained. Embrance Change, Second Edition By Kent Beck. ### Chapter What is XP? * It's about social change. * Don't protect yourself from success by holding back. Do your best and then deal with the consequences. * It's a style of software development focusing on excellent application of programming techniques, clear communication, and teamwork. * It's a path of improvement to excellence for people coming together to develop software. It is distinguished by:     * Its short development cycles. * Its incremental planning approach. * Its ability to flexibly when the business needs change. * Its reliance on automated tests. * Its reliance on oral communication. * Its reliance on an evolutionary design process. * Its reliance on the close collaboration. * Its reliance on practices that work with both the short-term instincts of the team members and the long-term interests of the project. * XP is a lightweight methodology for small-to-medium-sized teams developing software in the face of vague or rapidly changing requirements. * In XP you only do what you need to do to create value for the customer. * The values and principles behind XP are applicable at any scale. * It's a methodology based on addressing constraints in software development. * XP demands that participants learn a high level of technique in service of the team's goals. * The risks in the development process: * Schedule slips.  * It calls for short release cycles, so the scope of any slip is limited. Within a release, XP uses one-week iterations of customer-requested features to create fine-grained feedback about progress. XP calls for implementing the highest priority features first, so any features that slip past the release will be of lower value. * Project canceled. * It asks the business-oriented part of the team to choose the smallest release that makes the most business sense, so there is less to go wrong before deploying and the value of the software is greatest. * System goes sour. * It creates and maintains a comprehensive suite of automated tests, which are run and rerun after every change to ensure a quality baseline. XP always keeps the system in deployable condition. Problems are not allowed to accumulate. * Defect rate. * It tests from the perspective of both programmers writing tests function-by-function and customers writing tests program-feature-by-program-feature. * Business misunderstood. * The specification of the project is continuously refined during development, so learning by the customer and the team can be reflected in the software. * Business changes. * It shortens the release cycle, so there is less change during the development of a single release. During a release, the customer is welcome to substitute new functionality for functionality not yet completed. The team doesn't even notice if it is working on newly discovered functionality or features defined years ago. * False feature rich. * XP insists that only the highest priority tasks are addressed. * Staff turnover.* XP asks programmers to accept responsibility for estimating and completing their own work, gives them feedback about the actual time taken so their estimates can improve, and respects those estimates. XP also encourages human contact among the team, reducing the loneliness that is often at the heart of job dissatisfaction. New team members are encouraged to gradually accept more and more responsibility.\",\n" +
+                "        \"preco\": 299.99,\n" +
+                "        \"pag\": 224,\n" +
+                "        \"isbn\":\"9-780-32127865-4\",\n" +
+                "        \"lancamento\":\"28/09/2020\",\n" +
+                "        \"autor\":1,\n" +
+                "        \"categoria\":1\n" +
+                "}";
+        URI uri = new URI("/livros");
+        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestSuccess)
+        ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.BAD_REQUEST.value()));
+    }
+
 }
