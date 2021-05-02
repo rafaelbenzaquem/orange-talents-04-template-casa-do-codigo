@@ -45,7 +45,7 @@ public class Livro {
     public Livro() {
     }
 
-    public NovoLivroResponse toResponse() {
+    public NovoLivroResponse toNovoLivroResponse() {
         return new NovoLivroResponse.Builder(this.id, this.titulo, this.resumo, this.categoria.getId(), this.autor.getId())
                 .sumario(this.sumario)
                 .preco(this.preco)
@@ -53,6 +53,10 @@ public class Livro {
                 .isbn(this.isbn)
                 .lancamento(this.lancamento)
                 .build();
+    }
+
+    public DetalhesLivroResponse toLivroDeListaResponse(){
+        return new DetalhesLivroResponse(this.id,this.titulo);
     }
 
 
