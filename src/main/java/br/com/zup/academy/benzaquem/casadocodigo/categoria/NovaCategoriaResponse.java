@@ -5,9 +5,9 @@ public class NovaCategoriaResponse {
     private Integer id;
     private String nome;
 
-    public NovaCategoriaResponse(Integer id, String nome) {
-        this.id = id;
-        this.nome = nome;
+    public NovaCategoriaResponse(Categoria categoria) {
+        this.id = categoria.getId();
+        this.nome = categoria.getNome();
     }
 
     public Integer getId() {

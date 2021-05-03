@@ -1,6 +1,9 @@
 package br.com.zup.academy.benzaquem.casadocodigo.categoria;
 
+import br.com.zup.academy.benzaquem.casadocodigo.livro.Livro;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Categoria {
@@ -10,6 +13,10 @@ public class Categoria {
     @Column(unique = true)
     private String nome;
 
+    @OneToMany(mappedBy = "categoria")
+    private List<Livro> livros;
+
+    @Deprecated
     public Categoria() {
     }
 
@@ -25,9 +32,11 @@ public class Categoria {
         return id;
     }
 
-    public NovaCategoriaResponse toResponse() {
-        return new NovaCategoriaResponse(this.id, this.nome);
+    public String getNome() {
+        return nome;
     }
 
-
+    public List<Livro> getLivros() {
+        return livros;
+    }
 }

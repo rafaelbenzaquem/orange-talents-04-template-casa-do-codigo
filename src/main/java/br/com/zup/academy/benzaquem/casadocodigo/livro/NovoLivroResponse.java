@@ -17,7 +17,21 @@ public class NovoLivroResponse {
     private Long idAutor;
 
     @Deprecated
-    public NovoLivroResponse(){}
+    public NovoLivroResponse() {
+    }
+
+    public NovoLivroResponse(Livro livro) {
+        this.id = livro.getId();
+        this.titulo = livro.getTitulo();
+        this.resumo = livro.getResumo();
+        this.sumario = livro.getSumario();
+        this.preco = livro.getPreco();
+        this.pag = livro.getPag();
+        this.isbn = livro.getIsbn();
+        this.lancamento = livro.getLancamento();
+        this.idAutor = livro.getAutor() == null ? null : livro.getAutor().getId();
+        this.idCategoria = livro.getCategoria() == null ? null : livro.getCategoria().getId();
+    }
 
     private NovoLivroResponse(Builder builder) {
         this.id = builder.id;

@@ -17,7 +17,7 @@ public class CategoriaController {
     @PostMapping(path = "/categorias")
     public ResponseEntity<NovaCategoriaResponse> cadastrar(@RequestBody @Valid NovaCategoriaRequest novaCategoriaRequest){
         Categoria categoria = categoriaRepository.save(novaCategoriaRequest.toCategoria());
-        return ResponseEntity.ok().body(categoria.toResponse());
+        return ResponseEntity.ok().body(new NovaCategoriaResponse(categoria));
     }
 
 }

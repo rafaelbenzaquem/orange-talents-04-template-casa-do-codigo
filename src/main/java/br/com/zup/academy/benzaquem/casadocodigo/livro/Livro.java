@@ -45,20 +45,45 @@ public class Livro {
     public Livro() {
     }
 
-    public NovoLivroResponse toNovoLivroResponse() {
-        return new NovoLivroResponse.Builder(this.id, this.titulo, this.resumo, this.categoria.getId(), this.autor.getId())
-                .sumario(this.sumario)
-                .preco(this.preco)
-                .pag(this.pag)
-                .isbn(this.isbn)
-                .lancamento(this.lancamento)
-                .build();
+    public Long getId() {
+        return id;
     }
 
-    public DetalhesLivroResponse toLivroDeListaResponse(){
-        return new DetalhesLivroResponse(this.id,this.titulo);
+    public String getTitulo() {
+        return titulo;
     }
 
+    public String getResumo() {
+        return resumo;
+    }
+
+    public String getSumario() {
+        return sumario;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public Integer getPag() {
+        return pag;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public LocalDate getLancamento() {
+        return lancamento;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
 
     public static class Builder {
 

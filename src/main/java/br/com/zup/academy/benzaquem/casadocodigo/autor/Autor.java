@@ -1,9 +1,11 @@
 package br.com.zup.academy.benzaquem.casadocodigo.autor;
 
+import br.com.zup.academy.benzaquem.casadocodigo.livro.Livro;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Autor {
@@ -19,6 +21,10 @@ public class Autor {
     @CreationTimestamp
     private Timestamp instante;
 
+    @OneToMany(mappedBy = "autor")
+    private List<Livro> livros;
+
+    @Deprecated
     public Autor() {
     }
 
@@ -50,5 +56,9 @@ public class Autor {
 
     public Timestamp getInstante() {
         return instante;
+    }
+
+    public List<Livro> getLivros() {
+        return livros;
     }
 }

@@ -32,15 +32,15 @@ public class NovoLivroRequest {
             fieldName = "isbn",
             domainClass = Livro.class)
     private String isbn;
-    @Future
+    @Future(message = "O lançamento precisa está no futuro.")
     @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
-    @NotNull
+    @NotNull(message = "O lançamento não pode ser nulo.")
     private LocalDate lancamento;
-    @NotNull
-    @EntidadeExistente(domainClass = Categoria.class)
+    @NotNull(message = "O campo categoria não pode ser nulo")
+    @EntidadeExistente(message = "Não existe categoria com esse id",domainClass = Categoria.class)
     private Integer categoria;
-    @NotNull
-    @EntidadeExistente(domainClass = Autor.class)
+    @NotNull(message = "O campo autor não pode ser nulo")
+    @EntidadeExistente(message = "Não existe autor com esse id",domainClass = Autor.class)
     private Long autor;
 
 
